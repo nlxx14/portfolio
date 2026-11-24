@@ -45,30 +45,22 @@ export default function Loader() {
     return () => clearInterval(id);
   }, []);
 
-  // Progress: climbs to 90%, then finishes once the page has fully loaded
+  // Progress: climbs smoothly from 0% to 100%
   useEffect(() => {
-    let loaded = document.readyState === "complete";
-    const onLoad = () => (loaded = true);
-    window.addEventListener("load", onLoad);
-
     const id = setInterval(() => {
       setProgress((p) => {
-        const cap = loaded ? 100 : 90;
-        if (p >= cap) return p;
-        return Math.min(cap, p + Math.random() * 6 + 1);
+        if (p >= 100) return 100;
+        return Math.min(100, p + Math.random() * 7 + 2);
       });
-    }, 120);
+    }, 80);
 
-    return () => {
-      clearInterval(id);
-      window.removeEventListener("load", onLoad);
-    };
+    return () => clearInterval(id);
   }, []);
 
   // Fade out shortly after reaching 100%
   useEffect(() => {
     if (progress >= 100) {
-      const t = setTimeout(() => setDone(true), 500);
+      const t = setTimeout(() => setDone(true), 400);
       return () => clearTimeout(t);
     }
   }, [progress]);
@@ -109,11 +101,12 @@ export default function Loader() {
 
           {/* LOADING */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <h1
+            <p
+              aria-live="polite"
               className={`${display.className} text-6xl uppercase tracking-tight text-white sm:text-7xl md:text-8xl`}
             >
               Loading
-            </h1>
+            </p>
           </div>
 
           {/* Progress bar */}

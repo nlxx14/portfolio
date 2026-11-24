@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,8 +18,10 @@ const techStack = [
   "TYPESCRIPT",
   "TAILWIND CSS",
   "NODE.JS",
-  "POSTGRESQL",
+  "MONGODB",
+  "MYSQL",
   "FRAMER MOTION",
+  "PYTHON",
   "GIT",
 ];
 
@@ -130,6 +132,7 @@ function IdCard({
   constraintsRef: RefObject<HTMLElement | null>;
 }) {
   const [imgError, setImgError] = useState(false);
+  const [hasDragged, setHasDragged] = useState(false);
 
   // How far the card has been pulled from its resting spot
   const x = useMotionValue(0);
@@ -189,6 +192,7 @@ function IdCard({
         dragElastic={0.15}
         dragMomentum={false}
         onDragStart={() => {
+          setHasDragged(true);
           idle.current?.stop();
           springs.current.forEach((s) => s.stop());
         }}
@@ -309,6 +313,16 @@ function IdCard({
           </div>
         </div>
       </motion.div>
+
+      {/* Subtle interactive drag cue */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: hasDragged ? 0 : 0.75 }}
+        transition={{ duration: 0.4, delay: hasDragged ? 0 : 1.2 }}
+        className="pointer-events-none mt-4 text-center font-mono text-[11px] tracking-widest text-zinc-400"
+      >
+        ✦ DRAG ID CARD ✦
+      </motion.p>
     </div>
   );
 }
@@ -334,6 +348,14 @@ export default function Hero() {
             transition={{ duration: 0.7 }}
             className="max-w-3xl"
           >
+            <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              Open to Internships &amp; Projects
+            </div>
+
             <div className="mb-8 flex items-center gap-3">
               <span className="h-px w-10 bg-[#a78bfa]" />
               <span className="font-mono text-sm tracking-wider text-[#a78bfa]">
@@ -374,6 +396,16 @@ export default function Hero() {
               >
                 Get in touch
               </Link>
+
+              <a
+                href="/CV N.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg border border-[#a78bfa]/35 bg-[#a78bfa]/10 px-5 py-3 text-sm font-medium text-[#c4b5fd] transition-colors hover:border-[#a78bfa]/60 hover:bg-[#a78bfa]/20 hover:text-white"
+              >
+                <FileText size={16} />
+                Resume / CV
+              </a>
             </div>
 
             <div className="mt-12 flex items-center gap-6">

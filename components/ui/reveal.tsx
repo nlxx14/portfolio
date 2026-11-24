@@ -24,8 +24,7 @@ type Props = {
 
 /**
  * Wrap a block of content. When it enters the viewport, its
- * <RevealItem> children appear one by one. It resets when it
- * leaves, so it replays on every scroll (down and up).
+ * <RevealItem> children appear one by one.
  */
 export function RevealGroup({ children, className }: Props) {
   return (
@@ -33,7 +32,7 @@ export function RevealGroup({ children, className }: Props) {
       variants={container}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.1 }}
       className={className}
     >
       {children}

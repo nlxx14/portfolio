@@ -14,9 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Full-Stack Developer",
+  title: "Noly Sereño | Full-Stack Developer",
   description:
-    "Personal portfolio of a full-stack developer building modern web applications.",
+    "Personal portfolio of Noly Sereño — a Full-Stack Developer building modern, responsive, and scalable web applications with Next.js, React, and TypeScript.",
+  openGraph: {
+    title: "Noly Sereño | Full-Stack Developer",
+    description:
+      "Personal portfolio of Noly Sereño — building modern, responsive, and scalable web applications.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

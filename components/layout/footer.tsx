@@ -9,7 +9,7 @@ export default function Footer() {
         </p>
 
         
-      <div className="mt-12 flex items-center gap-6">
+        <div className="flex items-center gap-6">
         <Link
             href="https://github.com/nlxx14"
             target="_blank"

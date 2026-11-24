@@ -15,51 +15,47 @@ import { RevealGroup, RevealItem } from "@/components/ui/reveal";
 
 const projects = [
   {
-    title: "Your Project Name",
+    title: "Xeno — Interactive Developer Portfolio",
     description:
-      "Add a short description of your project, the problem it solves, and what it does.",
+      "A modern developer portfolio featuring a physics-driven draggable 3D lanyard ID card, smooth Framer Motion scroll reveals, and an interactive certificate showcase.",
     image: "/projects/project-1.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    href: "#",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    href: "#home",
+    github: "https://github.com/nlxx14",
   },
   {
-    title: "Your Second Project",
+    title: "TaskFlow — Full-Stack Workspace App",
     description:
-      "Add a short description of your project, the problem it solves, and what it does.",
+      "A responsive task and project management web application with real-time status tracking, role-based views, and RESTful API integration.",
     image: "/projects/project-2.png",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    href: "#",
+    tags: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+    href: "https://github.com/nlxx14",
+    github: "https://github.com/nlxx14",
   },
   {
-    title: "Your Third Project",
+    title: "FigmaFusion — UI/UX Interface System",
     description:
-      "Add a short description of your project, the problem it solves, and what it does.",
+      "An accessible, component-driven web interface prototype translating modern design concepts into responsive interactive layouts.",
     image: "/projects/project-3.png",
-    tags: ["Next.js", "Framer Motion"],
-    href: "#",
+    tags: ["Figma", "Next.js", "Tailwind CSS", "UI/UX"],
+    href: "https://github.com/nlxx14",
+    github: "https://github.com/nlxx14",
   },
 ];
 
 const certificates = [
   {
     title: "FigmaFusion: From Concept to Interface",
-    issuer: "Issuing Organization",
-    date: "2026",
+    issuer: "Cor Jesu College — Association of Computer Studies Students",
+    date: "March 2026",
     image: "/certificates/certificate-1.png",
     href: "#",
   },
   {
-    title: "Certificate Title",
-    issuer: "Issuing Organization",
-    date: "2025",
+    title: "Network Addressing and Basic Troubleshooting",
+    issuer: "Cisco Networking Academy",
+    date: "January 2026",
     image: "/certificates/certificate-2.png",
-    href: "#",
-  },
-  {
-    title: "Certificate Title",
-    issuer: "Issuing Organization",
-    date: "2025",
-    image: "/certificates/certificate-3.png",
     href: "#",
   },
 ];
@@ -284,8 +280,18 @@ export default function Projects() {
                       ))}
                     </div>
 
-                    <div className="mt-6 px-2 pb-2">
-                      <DetailsLink href={project.href} label="Details" />
+                    <div className="mt-6 flex flex-wrap items-center gap-3 px-2 pb-2">
+                      <DetailsLink href={project.href} label="Live Demo" />
+                      {project.github && (
+                        <Link
+                          href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-400 transition-colors hover:text-[#a78bfa]"
+                        >
+                          GitHub ↗
+                        </Link>
+                      )}
                     </div>
                   </motion.div>
                 ))}
