@@ -2,12 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Bodoni_Moda } from "next/font/google";
-
-const display = Bodoni_Moda({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-});
 
 type Bits = { id: number; text: string; left: number; top: number };
 
@@ -40,9 +34,12 @@ export default function Loader() {
 
   // Floating binary (generated after mount to avoid hydration mismatch)
   useEffect(() => {
-    setBits(generateBits());
+    const raf = requestAnimationFrame(() => setBits(generateBits()));
     const id = setInterval(() => setBits(generateBits()), 700);
-    return () => clearInterval(id);
+    return () => {
+      cancelAnimationFrame(raf);
+      clearInterval(id);
+    };
   }, []);
 
   // Progress: climbs smoothly from 0% to 100%
@@ -103,7 +100,7 @@ export default function Loader() {
           <div className="absolute inset-0 flex items-center justify-center">
             <p
               aria-live="polite"
-              className={`${display.className} text-6xl uppercase tracking-tight text-white sm:text-7xl md:text-8xl`}
+              className="font-serif text-6xl uppercase tracking-tight text-white sm:text-7xl md:text-8xl"
             >
               Loading
             </p>
