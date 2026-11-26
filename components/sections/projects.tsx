@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { scrollToSection } from "@/lib/scroll";
 
 /* ------------------------------------------------------------------ */
 /*  EDIT YOUR CONTENT HERE                                             */
@@ -155,6 +156,7 @@ function DetailsLink({ href, label }: { href: string; label: string }) {
       href={href}
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
+      onClick={external ? undefined : (e) => scrollToSection(href, e)}
       className="group/btn inline-flex items-center gap-2 rounded-lg border border-zinc-800 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-zinc-200 transition-colors hover:border-white/30 hover:text-white light:border-zinc-300 light:bg-zinc-50 light:text-zinc-800 light:hover:border-zinc-500 light:hover:bg-zinc-100 light:hover:text-zinc-950"
     >
       {label}

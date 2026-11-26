@@ -6,6 +6,7 @@ import { ArrowDown, ArrowUpRight, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import IdCard from "@/components/ui/id-card";
+import { scrollToSection } from "@/lib/scroll";
 
 const HEADLINE_LINES = [
   "Building digital",
@@ -338,6 +339,7 @@ export default function Hero() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Link
                 href="#projects"
+                onClick={(e) => scrollToSection("#projects", e)}
                 className="group flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition-all hover:bg-zinc-200 light:bg-zinc-950 light:text-white light:hover:bg-zinc-800"
               >
                 Explore my work
@@ -349,6 +351,7 @@ export default function Hero() {
 
               <Link
                 href="#contact"
+                onClick={(e) => scrollToSection("#contact", e)}
                 className="rounded-lg border border-zinc-800 px-6 py-3 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white light:border-zinc-300 light:text-zinc-700 light:hover:border-zinc-500 light:hover:text-zinc-950"
               >
                 Get in touch

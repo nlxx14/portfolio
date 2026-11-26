@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scroll";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -144,7 +145,10 @@ export default function Navbar() {
         <nav className="container-custom flex h-20 items-center justify-between">
           <Link
             href="#home"
-            onClick={() => setActiveHref("#home")}
+            onClick={(e) => {
+              setActiveHref("#home");
+              scrollToSection("#home", e);
+            }}
             className="group inline-flex items-center text-lg font-bold tracking-tight transition-transform duration-200 hover:scale-[1.03]"
           >
             <span className="text-zinc-400 transition-colors group-hover:text-white light:text-zinc-500 light:group-hover:text-zinc-950">
@@ -169,7 +173,10 @@ export default function Navbar() {
                     key={link.href}
                     href={link.href}
                     onMouseEnter={() => setHoveredHref(link.href)}
-                    onClick={() => setActiveHref(link.href)}
+                    onClick={(e) => {
+                      setActiveHref(link.href);
+                      scrollToSection(link.href, e);
+                    }}
                     className={`relative rounded-full px-3.5 py-1.5 text-sm transition-colors ${
                       isHighlighted
                         ? "text-white light:text-zinc-950"
@@ -233,6 +240,7 @@ export default function Navbar() {
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link
                 href="#contact"
+                onClick={(e) => scrollToSection("#contact", e)}
                 className="inline-block rounded-lg border border-white/25 bg-white/[0.04] px-4 py-2 text-sm text-zinc-100 transition-colors hover:border-white/50 hover:bg-white/10 light:border-zinc-950/20 light:bg-zinc-950 light:text-white light:hover:bg-zinc-800"
               >
                 Let&apos;s talk
@@ -278,9 +286,10 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        onClick={() => {
+                        onClick={(e) => {
                           setActiveHref(link.href);
                           setMobileOpen(false);
+                          scrollToSection(link.href, e);
                         }}
                         className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
                           isActive

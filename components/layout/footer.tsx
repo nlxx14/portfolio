@@ -3,6 +3,7 @@
 import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { scrollToSection } from "@/lib/scroll";
 
 const exploreLinks = [
   { label: "Home", href: "#home" },
@@ -69,6 +70,7 @@ export default function Footer() {
           <div className="max-w-md">
             <Link
               href="#home"
+              onClick={(e) => scrollToSection("#home", e)}
               className="inline-flex items-center gap-2.5 text-xs font-semibold tracking-[0.18em] text-zinc-200 transition-colors hover:text-white light:text-zinc-800 light:hover:text-zinc-950"
             >
               <span className="flex h-6 w-6 items-center justify-center rounded-full border border-white/40 light:border-zinc-950/35">
@@ -100,6 +102,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
+                      onClick={(e) => scrollToSection(link.href, e)}
                       className="text-sm text-zinc-400 transition-colors hover:text-white light:text-zinc-600 light:hover:text-zinc-950"
                     >
                       {link.label}

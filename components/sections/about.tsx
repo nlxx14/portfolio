@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   type LucideIcon,
 } from "lucide-react";
+import { scrollToSection } from "@/lib/scroll";
 import {
   SiExpress,
   SiFigma,
@@ -252,6 +253,7 @@ export default function About() {
 
             <Link
               href="#contact"
+              onClick={(e) => scrollToSection("#contact", e)}
               className="mt-8 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-zinc-950 transition-colors hover:bg-zinc-200 light:bg-zinc-950 light:text-white light:hover:bg-zinc-800"
             >
               <Mail size={16} />
@@ -283,6 +285,7 @@ export default function About() {
 
             <Link
               href="#projects"
+              onClick={(e) => scrollToSection("#projects", e)}
               className="group mt-8 inline-flex items-center gap-2 rounded-lg border border-zinc-800 px-6 py-3 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white light:border-zinc-300 light:text-zinc-700 light:hover:border-zinc-500 light:hover:text-zinc-950"
             >
               View projects
