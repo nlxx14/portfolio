@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import {
   AnimatePresence,
   motion,
@@ -10,6 +10,7 @@ import {
 import { Menu, Moon, Sun, X } from "lucide-react";
 import Link from "next/link";
 import { scrollToSection } from "@/lib/scroll";
+import { useIsLightTheme } from "@/lib/use-theme";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -20,34 +21,13 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-function subscribeTheme(callback: () => void) {
-  const observer = new MutationObserver(callback);
-  observer.observe(document.documentElement, {
-    attributes: true,
-    attributeFilter: ["class"],
-  });
-  return () => observer.disconnect();
-}
-
-function getThemeSnapshot() {
-  return document.documentElement.classList.contains("light");
-}
-
-function getServerThemeSnapshot() {
-  return true;
-}
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHref, setActiveHref] = useState("#home");
   const [hoveredHref, setHoveredHref] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
-  const isLight = useSyncExternalStore(
-    subscribeTheme,
-    getThemeSnapshot,
-    getServerThemeSnapshot
-  );
+  const isLight = useIsLightTheme();
 
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {

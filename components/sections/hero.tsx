@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import IdCard from "@/components/ui/id-card";
 import { scrollToSection } from "@/lib/scroll";
+import { useIsLightTheme } from "@/lib/use-theme";
 
 const HEADLINE_LINES = [
   "Building digital",
@@ -253,6 +254,7 @@ function SpotlightHeadline() {
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const isLight = useIsLightTheme();
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-20">
@@ -265,20 +267,12 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 -z-20"
       >
         <Image
-          src="/hero-bg.webp"
+          src={isLight ? "/hero-bg-light.webp" : "/hero-bg.webp"}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="block object-cover object-center light:hidden"
-        />
-        <Image
-          src="/hero-bg-light.webp"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hidden object-cover object-center light:block"
+          className="object-cover object-center"
         />
       </motion.div>
 

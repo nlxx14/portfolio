@@ -4,6 +4,7 @@ import { ArrowUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { scrollToSection } from "@/lib/scroll";
+import { useIsLightTheme } from "@/lib/use-theme";
 
 const exploreLinks = [
   { label: "Home", href: "#home" },
@@ -38,6 +39,7 @@ const elsewhereLinks = [
 ];
 
 export default function Footer() {
+  const isLight = useIsLightTheme();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -47,18 +49,11 @@ export default function Footer() {
       {/* Atmospheric misty mountain backdrop */}
       <div className="pointer-events-none absolute inset-0">
         <Image
-          src="/footer-bg.webp"
+          src={isLight ? "/footer-bg-light.webp" : "/footer-bg.webp"}
           alt=""
           fill
           sizes="100vw"
-          className="block object-cover object-bottom opacity-65 light:hidden"
-        />
-        <Image
-          src="/footer-bg-light.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="hidden object-cover object-bottom opacity-90 light:block"
+          className={`object-cover object-bottom ${isLight ? "opacity-90" : "opacity-65"}`}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#09090b] via-[#09090b]/45 to-[#09090b]/85 light:from-[#f8f8fa] light:via-[#f8f8fa]/20 light:to-[#f8f8fa]/75" />
       </div>

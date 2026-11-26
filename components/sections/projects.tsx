@@ -37,7 +37,7 @@ const projects: {
     title: "Xeno — Interactive Developer Portfolio",
     description:
       "My personal developer portfolio built with Next.js 16 and TypeScript, featuring a physics-driven 3D lanyard ID card, dual-theme UI, and interactive cursor effects.",
-    image: "/projects/project-1.png",
+    image: "/projects/xeno-portfolio.png",
     tags: ["Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
     status: "Live",
     href: "#home",
@@ -49,13 +49,13 @@ const projects: {
     ],
   },
   {
-    title: "Laravel E-Commerce Platform",
+    title: "Xhopy - Laravel E\u2011Commerce Platform",
     description:
       "A full-stack e-commerce web application currently in active development—featuring product catalogs, shopping cart management, authentication, and MySQL order processing.",
     image: "/projects/project-2.png",
     tags: ["Laravel", "MySQL", "Tailwind CSS", "Full-Stack"],
     status: "In Progress",
-    github: "https://github.com/nlxx14",
+    github: "https://github.com/nlxx14/Xhopy",
     highlights: [
       "MVC architecture with Laravel, Eloquent ORM, and MySQL database",
       "Responsive storefront UI styled with Tailwind CSS",
