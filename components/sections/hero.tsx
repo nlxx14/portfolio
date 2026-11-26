@@ -264,7 +264,7 @@ export default function Hero() {
         className="pointer-events-none absolute inset-0 -z-20"
       >
         <Image
-          src="/hero-bg.png"
+          src="/hero-bg.webp"
           alt=""
           fill
           priority
@@ -272,7 +272,7 @@ export default function Hero() {
           className="block object-cover object-center light:hidden"
         />
         <Image
-          src="/hero-bg-light.png"
+          src="/hero-bg-light.webp"
           alt=""
           fill
           priority
@@ -355,7 +355,7 @@ export default function Hero() {
               </Link>
 
               <a
-                href="/CV N.pdf"
+                href="/noly-sereno-cv.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/[0.05] px-5 py-3 text-sm font-medium text-zinc-200 transition-colors hover:border-white/40 hover:bg-white/[0.1] hover:text-white light:border-zinc-950/15 light:bg-zinc-950/[0.04] light:text-zinc-800 light:hover:border-zinc-950/35 light:hover:bg-zinc-950/[0.08] light:hover:text-zinc-950"

@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight, Award, Code, X } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Award,
+  CheckCircle2,
+  Circle,
+  Code,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { RevealGroup, RevealItem } from "@/components/ui/reveal";
@@ -21,6 +29,8 @@ const projects: {
   status?: string;
   href?: string;
   github?: string;
+  highlights?: string[];
+  roadmap?: { label: string; done: boolean }[];
 }[] = [
   {
     title: "Xeno — Interactive Developer Portfolio",
@@ -31,6 +41,11 @@ const projects: {
     status: "Live",
     href: "#home",
     github: "https://github.com/nlxx14/portfolio",
+    highlights: [
+      "Physics-driven draggable 3D lanyard ID badge with Framer Motion",
+      "Dual Monochrome Silver Light & Dark themes persisted in localStorage",
+      "Character-level spotlight headline & responsive mobile navigation",
+    ],
   },
   {
     title: "Laravel E-Commerce Platform",
@@ -40,23 +55,37 @@ const projects: {
     tags: ["Laravel", "MySQL", "Tailwind CSS", "Full-Stack"],
     status: "In Progress",
     github: "https://github.com/nlxx14",
+    highlights: [
+      "MVC architecture with Laravel, Eloquent ORM, and MySQL database",
+      "Responsive storefront UI styled with Tailwind CSS",
+    ],
+    roadmap: [
+      { label: "Database schema & user authentication", done: true },
+      { label: "Product catalog & category filtering", done: true },
+      { label: "Shopping cart & session management", done: false },
+      { label: "Checkout flow & order history", done: false },
+    ],
   },
 ];
 
-const certificates = [
+const certificates: {
+  title: string;
+  issuer: string;
+  date: string;
+  image: string;
+  href?: string;
+}[] = [
   {
     title: "FigmaFusion: From Concept to Interface",
     issuer: "Cor Jesu College — Association of Computer Studies Students",
     date: "March 2026",
     image: "/certificates/certificate-1.png",
-    href: "#",
   },
   {
     title: "Network Addressing and Basic Troubleshooting",
     issuer: "Cisco Networking Academy",
     date: "January 2026",
     image: "/certificates/certificate-2.png",
-    href: "#",
   },
 ];
 
@@ -164,12 +193,18 @@ export default function Projects() {
   const [selected, setSelected] = useState<(typeof certificates)[number] | null>(
     null
   );
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[number] | null
+  >(null);
 
   // Close the popup with the Escape key, and stop the page scrolling behind it
   useEffect(() => {
-    if (!selected) return;
+    if (!selected && !selectedProject) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelected(null);
+      if (e.key === "Escape") {
+        setSelected(null);
+        setSelectedProject(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -177,7 +212,7 @@ export default function Projects() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [selected]);
+  }, [selected, selectedProject]);
 
   return (
     <section
@@ -304,6 +339,12 @@ export default function Projects() {
                           Building now
                         </span>
                       )}
+                      {(project.highlights || project.roadmap) && (
+                        <DetailsButton
+                          label="Details"
+                          onClick={() => setSelectedProject(project)}
+                        />
+                      )}
                       {project.github && (
                         <Link
                           href={project.github}
@@ -415,7 +456,7 @@ export default function Projects() {
                   {selected.issuer} · {selected.date}
                 </p>
 
-                {selected.href.startsWith("http") && (
+                {selected.href?.startsWith("http") && (
                   <a
                     href={selected.href}
                     target="_blank"
@@ -425,6 +466,148 @@ export default function Projects() {
                     Verify online
                     <ArrowUpRight size={15} />
                   </a>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Project details modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            key="project-details-popup"
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedProject.title}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setSelectedProject(null)}
+            className="fixed inset-0 z-[150] flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-6"
+          >
+            <motion.div
+              initial={{ scale: 0.96, opacity: 0, y: 12 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.96, opacity: 0, y: 12 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-zinc-800 bg-[#111116] p-6 text-zinc-100 shadow-2xl sm:p-8 light:border-zinc-200 light:bg-white light:text-zinc-950"
+            >
+              <button
+                type="button"
+                onClick={() => setSelectedProject(null)}
+                aria-label="Close project details"
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-white/[0.04] text-zinc-400 transition-colors hover:border-white/30 hover:text-white light:border-zinc-200 light:bg-zinc-100 light:text-zinc-600 light:hover:border-zinc-400 light:hover:text-zinc-950"
+              >
+                <X size={16} />
+              </button>
+
+              <div className="pr-10">
+                {selectedProject.status && (
+                  <span
+                    className={`inline-block rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider ${
+                      selectedProject.status === "In Progress"
+                        ? "border-amber-500/30 bg-amber-500/10 text-amber-300 light:border-amber-600/30 light:bg-amber-500/10 light:text-amber-700"
+                        : "border-emerald-500/30 bg-emerald-500/10 text-emerald-300 light:border-emerald-600/30 light:bg-emerald-500/10 light:text-emerald-700"
+                    }`}
+                  >
+                    {selectedProject.status}
+                  </span>
+                )}
+                <h3 className="mt-3 text-2xl font-bold tracking-tight">
+                  {selectedProject.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-zinc-400 light:text-zinc-600">
+                  {selectedProject.description}
+                </p>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {selectedProject.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-md bg-white/[0.05] px-3 py-1 text-xs text-zinc-300 light:bg-zinc-100 light:text-zinc-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {selectedProject.highlights && (
+                <div className="mt-6 border-t border-zinc-800/80 pt-5 light:border-zinc-200">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400 light:text-zinc-500">
+                    Key Highlights
+                  </p>
+                  <ul className="mt-3 space-y-2.5">
+                    {selectedProject.highlights.map((item) => (
+                      <li
+                        key={item}
+                        className="flex items-start gap-2.5 text-sm text-zinc-300 light:text-zinc-700"
+                      >
+                        <CheckCircle2
+                          size={16}
+                          className="mt-0.5 shrink-0 text-emerald-400 light:text-emerald-600"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {selectedProject.roadmap && (
+                <div className="mt-6 border-t border-zinc-800/80 pt-5 light:border-zinc-200">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-zinc-400 light:text-zinc-500">
+                    Development Roadmap
+                  </p>
+                  <ul className="mt-3 space-y-2.5">
+                    {selectedProject.roadmap.map((step) => (
+                      <li
+                        key={step.label}
+                        className="flex items-center gap-2.5 text-sm text-zinc-300 light:text-zinc-700"
+                      >
+                        {step.done ? (
+                          <CheckCircle2
+                            size={16}
+                            className="shrink-0 text-emerald-400 light:text-emerald-600"
+                          />
+                        ) : (
+                          <Circle
+                            size={16}
+                            className="shrink-0 text-zinc-500 light:text-zinc-400"
+                          />
+                        )}
+                        <span
+                          className={
+                            step.done
+                              ? ""
+                              : "text-zinc-400 light:text-zinc-500"
+                          }
+                        >
+                          {step.label}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="mt-7 flex flex-wrap items-center gap-3 border-t border-zinc-800/80 pt-5 light:border-zinc-200">
+                {selectedProject.href && (
+                  <DetailsLink href={selectedProject.href} label="Live Demo" />
+                )}
+                {selectedProject.github && (
+                  <Link
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-800 px-4 py-2.5 text-sm font-medium text-zinc-300 transition-colors hover:border-white/30 hover:text-white light:border-zinc-300 light:text-zinc-700 light:hover:border-zinc-500 light:hover:text-zinc-950"
+                  >
+                    View on GitHub ↗
+                  </Link>
                 )}
               </div>
             </motion.div>

@@ -22,6 +22,9 @@ const bodoniModa = Bodoni_Moda({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://xeno-portfolio.vercel.app"
+  ),
   title: "Noly Sereño | Full-Stack Developer",
   description:
     "Personal portfolio of Noly Sereño — a Full-Stack Developer building modern, responsive, and scalable web applications with Next.js, React, and TypeScript.",
@@ -30,6 +33,21 @@ export const metadata: Metadata = {
     description:
       "Personal portfolio of Noly Sereño — building modern, responsive, and scalable web applications.",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Noly Sereño — Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Noly Sereño | Full-Stack Developer",
+    description:
+      "Personal portfolio of Noly Sereño — building modern, responsive, and scalable web applications.",
+    images: ["/og-image.png"],
   },
 };
 

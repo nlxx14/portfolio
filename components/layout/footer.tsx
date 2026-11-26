@@ -31,7 +31,7 @@ const elsewhereLinks = [
   },
   {
     label: "Resume / CV ↗",
-    href: "/CV N.pdf",
+    href: "/noly-sereno-cv.pdf",
     external: true,
   },
 ];
@@ -46,14 +46,14 @@ export default function Footer() {
       {/* Atmospheric misty mountain backdrop */}
       <div className="pointer-events-none absolute inset-0">
         <Image
-          src="/footer-bg.png"
+          src="/footer-bg.webp"
           alt=""
           fill
           sizes="100vw"
           className="block object-cover object-bottom opacity-65 light:hidden"
         />
         <Image
-          src="/footer-bg-light.png"
+          src="/footer-bg-light.webp"
           alt=""
           fill
           sizes="100vw"
