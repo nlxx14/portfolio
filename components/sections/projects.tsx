@@ -52,7 +52,7 @@ const projects: {
     title: "Xhopy - Laravel E\u2011Commerce Platform",
     description:
       "A full-stack e-commerce web application currently in active development—featuring product catalogs, shopping cart management, authentication, and MySQL order processing.",
-    image: "/projects/project-2.png",
+    image: "/projects/xhopy-ecommerce.png",
     tags: ["Laravel", "MySQL", "Tailwind CSS", "Full-Stack"],
     status: "In Progress",
     github: "https://github.com/nlxx14/Xhopy",
